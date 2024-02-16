@@ -11,6 +11,87 @@ DIST_PATH="$(pwd)/$DIST/"
 BUILD_PATH="$(pwd)/$BUILD/"
 MODULE_PATH="$(pwd)/$MODULES/"
 
+check_link() {
+	local path="$1"
+	local relative_path=$(convert_path_to_relative "$path")
+
+	if path_exists "$path"; then
+		if is_symbolic_link "$path"; then
+			log "\"$relative_path\" is already a symbolic link."
+		else
+			log_error "\"$relative_path\" is not a symbolic link."
+		fi
+	else
+		return 0
+	fi
+}
+
+check_path_exists() {
+	local path="$1"
+	local relative_path=$(convert_path_to_relative "$path")
+	if path_exists "$path"; then
+		log_success "\"$relative_path\" exists."
+	else
+		log_error "\"$relative_path\" does not exist."
+	fi
+}
+
+path_exists() {
+	local path="$1"
+	[ -e "$path" ]
+}
+
+is_symbolic_link() {
+	local path="$1"
+	[ "$(readlink -f "$path")" != "$path" ]
+}
+
+get_link_options() {
+	local soft_flag="$1"
+	if [ "$soft_flag" = "-s" ]; then
+		echo "-s"
+	else
+		echo ""
+	fi
+}
+
+create_link() {
+	local source_path="$1"
+	local destination_path="$2"
+	local options="$3"
+
+	ln $options "$source_path" "$destination_path"
+}
+
+create_symbolic_link() {
+	local source_path="$1"
+	local destination_path="$2"
+	local soft_flag="$3"
+
+	local options=$(get_link_options "$soft_flag")
+	create_link "$source_path" "$destination_path" "$options"
+}
+
+check_directory_exists() {
+	local path="$1"
+	if directory_exists "$path"; then
+		log_success "\"$(dirname "$path")\" exists."
+	else
+		log_error "\"$(dirname "$path")\" does not exist."
+	fi
+}
+
+directory_exists() {
+	local path="$1"
+	[ -d "$(dirname "$path")" ]
+}
+
+convert_path_to_relative() {
+	local path="$1"
+	local cwd=$(pwd)
+	echo "${path/#$cwd/~}"
+}
+
 function select_command() {
 	local commands=("$@")
 	log "Available commands:\n" "📝"
