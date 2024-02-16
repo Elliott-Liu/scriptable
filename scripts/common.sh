@@ -1,3 +1,16 @@
+#!/bin/bash
+
+SRC=src
+DIST=dist
+BUILD=build
+MODULES=modules
+
+ICLOUD_PATH="$HOME/Library/Mobile Documents/iCloud~dk~simonbs~Scriptable/Documents/"
+
+DIST_PATH="$(pwd)/$DIST/"
+BUILD_PATH="$(pwd)/$BUILD/"
+MODULE_PATH="$(pwd)/$MODULES/"
+
 function select_command() {
 	local commands=("$@")
 	log "Available commands:\n" "📝"
