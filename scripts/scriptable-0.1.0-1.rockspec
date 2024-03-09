@@ -14,7 +14,6 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    scriptable = "scripts/scriptable.lua",
     utilities = "scripts/utilities.lua",
   }
 }
