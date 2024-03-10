@@ -39,7 +39,7 @@ function utilities.uriEncode(string)
   string = string.gsub(string, "([^%w _%%%-%.~])", function(c)
     return string.format("%%%02X", string.byte(c))
   end)
-  string = string.gsub(string, " ", "+")
+  string = string.gsub(string, " ", "%%20")
   return string
 end
 
