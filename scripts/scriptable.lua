@@ -14,12 +14,4 @@ function init(file)
   print(utilities.getFilePath(iCloudPath .. file))
 end
 
-function logError(message)
-  print("Error: " .. message)
-end
-
-function logEuccess(message)
-  print("Success: " .. message)
-end
-
 init("Scriptable World.ts")
