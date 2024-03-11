@@ -5,6 +5,7 @@ local utilities = require("scripts.utilities")
 PWD = utilities.getPresentWorkingDirectory()
 HOME = utilities.getHomeDirectory()
 
+sourcePath = PWD .. "/src/"
 distributablePath = PWD .. "/dist/"
 buildPath = PWD .. "/build/"
 modulesPath = PWD .. "/modules/"
