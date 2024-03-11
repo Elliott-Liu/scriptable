@@ -43,6 +43,15 @@ function utilities.uriEncode(string)
   return string
 end
 
+function utilities.hasArgument(argument, arguments)
+  for _, value in ipairs(arguments) do
+    if value == argument then
+      return true
+    end
+  end
+  return false
+end
+
 function utilities.logError(message)
   print("Error: " .. message)
 end
