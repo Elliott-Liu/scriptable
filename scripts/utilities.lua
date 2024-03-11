@@ -21,6 +21,14 @@ function utilities.getBasename(filePath)
   return name
 end
 
+-- Checks if a string starts with a given prefix.
+-- @param str The string to check.
+-- @param prefix The prefix to check against the string.
+-- @return True if the string starts with the prefix, false otherwise.
+function utilities.startsWith(str, prefix)
+  return str:sub(1, #prefix) == prefix
+end
+
 function utilities.replaceFileExtension(filePath, extension)
   local name = utilities.getBasename(filePath)
   local basename = string.match(name, "(.+)%..+") or name
