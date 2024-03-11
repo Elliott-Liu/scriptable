@@ -11,14 +11,18 @@ modulesPath = PWD .. "/modules/"
 iCloudPath = HOME .. "/Library/Mobile Documents/iCloud~dk~simonbs~Scriptable/Documents/"
 devName = " (DEV)"
 
+function addDevName(string)
+  return string .. devName
+end
+
 function init(file)
   print(utilities.getFilePath(iCloudPath .. file))
 end
 
 function openInScriptable(filePath)
-  local fileBasename = utilities.getBasename("Days Until.js")
+  local fileBasename = utilities.getBasename(filePath)
   local fileName = utilities.replaceFileExtension(fileBasename, "")
-  local uri = utilities.uriEncode(fileName .. devName)
+  local uri = utilities.uriEncode(addDevName(fileName))
 
   local openCmd = "open scriptable:///open/" .. uri
   print("Running command: \"" .. openCmd .. "\".")
