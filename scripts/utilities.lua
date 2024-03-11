@@ -60,14 +60,20 @@ function utilities.hasArgument(argument, arguments)
   return false
 end
 
+-- Logs an error message.
+-- @param message The error message to log.
 function utilities.logError(message)
   print("Error: " .. message)
 end
 
+-- Logs a success message.
+-- @param message The success message to log.
 function utilities.logSuccess(message)
   print("Success: " .. message)
 end
 
+-- Logs a completion message.
+-- @param message The completion message to log.
 function utilities.logComplete(message)
   print("Complete: " .. message)
 end
