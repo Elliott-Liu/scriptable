@@ -122,3 +122,19 @@ end
 function buildAndWatch(entryFilePath)
   build(entryFilePath, "--watch")
 end
+
+local actions = {
+  init = init,
+  openInScriptable = openInScriptable,
+  build = build,
+  buildAndWatch = buildAndWatch
+}
+
+local action = arg[1]
+table.remove(arg, 1)
+
+if actions[action] then
+  actions[action](arg)
+else
+  print("Unknown action: " .. (action or "nil"))
+end
