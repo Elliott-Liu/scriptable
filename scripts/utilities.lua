@@ -21,6 +21,16 @@ function utilities.getBasename(filePath)
   return name
 end
 
+function utilities.fileExists(filePath)
+  local file = io.open(filePath, "r")
+  if file then
+    file:close()
+    return true
+  else
+    return false
+  end
+end
+
 -- Checks if a string starts with a given prefix.
 -- @param str The string to check.
 -- @param prefix The prefix to check against the string.
