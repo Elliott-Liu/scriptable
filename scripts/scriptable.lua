@@ -88,46 +88,25 @@ end
 -- The build function, which orchestrates the build process.
 -- @param entryFilePath The entry file path for the build process.
 -- @param ... Additional parameters for the build process.
-function build(entryFilePath, ...)
-  local arguments = {...}
-  local expectedParsedPath, status
+function build(arguments)
+  local srcFilePath = arguments[1]
+  local watchFlag = ""
 
-  if startsWith(entryFilePath, "./" .. src .. "/") then
-    expectedParsedPath, status = findTsFile(src, entryFilePath)
-    if status == 1 then
-      logError("The expected TypeScript file \"" .. expectedParsedPath .. "\" does not exist.")
-      os.exit(1)
-    end
+  if arguments[2] then
+    watchFlag = arguments[2]
   end
 
-  if not startsWith(entryFilePath, "./") then
-    expectedParsedPath, status = findTsFile(".", entryFilePath .. ".ts")
-    if status == 1 then
-      logError("\"" .. entryFilePath .. ".ts\" could not be found!")
-      os.exit(1)
-    else
-      logSuccess("We found the script at: \"" .. expectedParsedPath .. "\".")
-    end
-  end
+  local cmd = constructRollupCommand(srcFilePath, watchFlag)
 
-  local cmd = constructRollupCommand(expectedParsedPath, arguments)
-
-  -- os.execute(cmd)
+  os.execute(cmd)
 
   utilities.logSuccess("Done!")
-end
-
--- Builds and watches the TypeScript project.
--- @param entryFilePath The entry file path for the build and watch process.
-function buildAndWatch(entryFilePath)
-  build(entryFilePath, "--watch")
 end
 
 local actions = {
   init = init,
   openInScriptable = openInScriptable,
-  build = build,
-  buildAndWatch = buildAndWatch
+  build = build
 }
 
 local action = arg[1]
