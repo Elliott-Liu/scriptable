@@ -13,8 +13,13 @@ modulesPath = PWD .. "/modules/"
 iCloudPath = HOME .. "/Library/Mobile Documents/iCloud~dk~simonbs~Scriptable/Documents/"
 devName = " (DEV)"
 
-function addDevName(string)
-  return string .. devName
+function addDevName(filename)
+  local name, extension = filename:match("(.+)(%..+)$")
+  if name and extension then
+    return name .. devName .. extension
+  else
+    return filename .. devName
+  end
 end
 
 function init(file)
