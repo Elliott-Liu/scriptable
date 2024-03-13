@@ -6,7 +6,7 @@ local lfs = require("lfs") -- LuaFileSystem for file operations
 PWD = utilities.getPresentWorkingDirectory()
 HOME = utilities.getHomeDirectory()
 
-sourcePath = PWD .. "/src/"
+scriptsPath = PWD .. "/src/scripts/"
 distributablePath = PWD .. "/dist/"
 buildPath = PWD .. "/build/"
 modulesPath = PWD .. "/modules/"
