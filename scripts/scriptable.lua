@@ -88,7 +88,7 @@ end
 -- The build function, which orchestrates the build process.
 -- @param entryFilePath The entry file path for the build process.
 -- @param ... Additional parameters for the build process.
-local function build(entryFilePath, ...)
+function build(entryFilePath, ...)
   local arguments = {...}
   local expectedParsedPath, status
 
@@ -119,6 +119,6 @@ end
 
 -- Builds and watches the TypeScript project.
 -- @param entryFilePath The entry file path for the build and watch process.
-local function buildAndWatch(entryFilePath)
+function buildAndWatch(entryFilePath)
   build(entryFilePath, "--watch")
 end
