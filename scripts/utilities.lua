@@ -88,4 +88,38 @@ function utilities.logComplete(message)
   print("Complete: " .. message)
 end
 
+local base64IndexTable = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+local function toBinary(byte)
+  local binary = ""
+  for i = 8, 1, -1 do
+    binary = binary .. ((byte % 2 ^ i - byte % 2 ^ (i - 1) > 0) and "1" or "0")
+  end
+  return binary
+end
+
+local function fromBinaryToBase64(binary)
+  local base64 = ""
+  for i = 1, #binary, 6 do
+    local byte = binary:sub(i, i + 5)
+    if #byte < 6 then
+      break
+    end
+    local index = tonumber(byte, 2) + 1
+    base64 = base64 .. base64IndexTable:sub(index, index)
+  end
+  return base64
+end
+
+function utilities.base64Encode(data)
+  local binaryString = data:gsub(".", function(char)
+    return toBinary(char:byte())
+  end)
+
+  local base64 = fromBinaryToBase64(binaryString)
+  local padding = ("="):rep((4 - #base64 % 4) % 4)
+
+  return base64 .. padding
+end
+
 return utilities
