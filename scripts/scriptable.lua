@@ -22,8 +22,13 @@ function addDevName(filename)
   end
 end
 
-function init(file)
-  print(utilities.getFilePath(iCloudPath .. file))
+function init(arguments)
+  local srcFilePath = arguments[1]
+  local fileName = utilities.replaceFileExtension(utilities.getBasename(srcFilePath), ".js")
+  local devFileName = addDevName(fileName)
+  local iCloudFilePath = iCloudPath .. devFileName
+  local iCloudFilePathExists = utilities.fileExists(iCloudFilePath)
+  print(iCloudFilePathExists)
 end
 
 function openInScriptable(filePath)
